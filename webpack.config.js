@@ -1,9 +1,13 @@
-const path = require('path');
-const webpack = require('webpack');
-const SCRIPT = process.env.npm_lifecycle_event;
-const mode = SCRIPT === 'build' ? 'production' : 'development';
-const { log } = console;
-log(`run [script >>> ${SCRIPT}] [env >>> ${mode}]`);
+const path = require('path')
+const webpack = require('webpack')
+// webpack进度条
+const WebpackBar = require("webpackbar")
+// 获取当前正在运行的node脚本
+const SCRIPT = process.env.npm_lifecycle_event
+const mode = SCRIPT === 'build' ? 'production' : 'development'
+const { log } = console
+
+log(`run script [${SCRIPT}] env [${mode}]`)
 module.exports = {
   /**
    * webpack入口
@@ -92,4 +96,5 @@ module.exports = {
       },
     ],
   },
-};
+  plugins: [new WebpackBar()],
+}
