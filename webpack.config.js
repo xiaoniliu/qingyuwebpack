@@ -1,13 +1,13 @@
-const path = require('path')
-const webpack = require('webpack')
+const path = require('path');
+const webpack = require('webpack');
 // webpack进度条
-const WebpackBar = require("webpackbar")
+const WebpackBar = require('webpackbar');
 // 获取当前正在运行的node脚本
-const SCRIPT = process.env.npm_lifecycle_event
-const mode = SCRIPT === 'build' ? 'production' : 'development'
-const { log } = console
+const SCRIPT = process.env.npm_lifecycle_event;
+const mode = SCRIPT === 'build' ? 'production' : 'development';
+const { log } = console;
 
-log(`run script [${SCRIPT}] env [${mode}]`)
+log(`run script [${SCRIPT}] env [${mode}]`);
 module.exports = {
   /**
    * webpack入口
@@ -37,7 +37,7 @@ module.exports = {
    */
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: `bundle.[hash].js`,
+    filename: 'bundle.[hash].js',
   },
   /**
    * 定义一些loader
@@ -85,7 +85,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: path.resolve(__dirname, 'src'),
-        //排除掉node_module目录
+        // 排除掉node_module目录
         exclude: /(node_modules|bower_components)/,
         use: {
           loader: 'babel-loader',
@@ -97,4 +97,4 @@ module.exports = {
     ],
   },
   plugins: [new WebpackBar()],
-}
+};
