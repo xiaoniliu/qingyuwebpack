@@ -19,7 +19,7 @@ module.exports = {
    * }
    * 同时指定多个入口打包时会生成多个文件
    */
-  entry: `${__dirname}/src/index.js`,
+  entry: path.join(__dirname, '/src/index.js'),
   /**
    *  mode 模式
    *  指定process.env.NODE_ENV环境变量 也可以在package.json的scripts中指定--mode=xxx
@@ -96,5 +96,10 @@ module.exports = {
       },
     ],
   },
-  plugins: [new WebpackBar()],
+  plugins: [
+    /**
+     * 进度条插件
+     */
+    new WebpackBar(),
+  ],
 };
