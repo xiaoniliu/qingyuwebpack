@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 // webpack进度条
 const WebpackBar = require('webpackbar');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // 获取当前正在运行的node脚本
 const SCRIPT = process.env.npm_lifecycle_event;
 const mode = SCRIPT === 'build' ? 'production' : 'development';
@@ -94,12 +95,51 @@ module.exports = {
           },
         },
       },
+      /**
+       * TS TSX配置
+       */
+      {
+        test: /\.(tsx|ts)$/,
+        use: 'ts-loader',
+      },
     ],
+  },
+  /**
+   * Resolve 配置 Webpack 如何寻找模块所对应的文件
+   */
+  resolve: {
+    /**
+     * 别名
+     */
+    alias: {
+      '@utils': './src/utils',
+    },
+    /**
+     * 在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试访问文件是否存在。
+     * resolve.extensions 用于配置在尝试过程中用到的后缀列表 默认是js 和 json
+     */
+    extensions: ['.js', '.json', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
     /**
      * 进度条插件
      */
     new WebpackBar(),
+    /**
+     * Html入口
+     */
+    new HtmlWebpackPlugin({
+      /**
+       * 向template或者templateContent中注入所有静态资源，不同的配置值注入的位置不经相同
+       * 返回false
+       */
+      inject: 'body',
+      title: 'qingyu',
+      /**
+       * 模板源文件
+       */
+      template: path.join(__dirname, '/src/index.html'),
+      filename: 'index.html',
+    }),
   ],
 };
